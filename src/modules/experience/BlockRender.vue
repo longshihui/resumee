@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
-/** 工作经历模块渲染组件 */
-defineProps<{ block: any }>();
+import type { ExperienceBlock } from "./types";
+
+defineProps<{ block: ExperienceBlock }>();
 </script>
+

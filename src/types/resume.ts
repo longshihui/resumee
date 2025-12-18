@@ -1,20 +1,12 @@
-export interface ResumeBlock {
-  id: string;
-  type: string;
-  title: string;
-  data: Record<string, any>;
-}
+import type { PersonalBlock } from "../modules/personal/types";
+import type { SummaryBlock } from "../modules/summary/types";
+import type { ExperienceBlock } from "../modules/experience/types";
+import type { EducationBlock } from "../modules/education/types";
+import type { ProjectBlock } from "../modules/project/types";
 
-export interface ResumeState {
-  blocks: ResumeBlock[];
-  selectedBlockId: string | null;
-}
-
-export const BLOCK_TYPES = {
-  PERSONAL: 'personal',
-  SUMMARY: 'summary',
-  EXPERIENCE: 'experience',
-  EDUCATION: 'education',
-  PROJECT: 'project',
-  SKILL: 'skill',
-};
+export type ResumeBlock =
+  | PersonalBlock
+  | SummaryBlock
+  | ExperienceBlock
+  | EducationBlock
+  | ProjectBlock;

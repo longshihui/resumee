@@ -30,6 +30,8 @@
 </template>
 
 <script setup lang="ts">
-/** 项目经历模块渲染组件 */
-defineProps<{ block: any }>();
+import type { ProjectBlock } from "./types";
+
+defineProps<{ block: ProjectBlock }>();
 </script>
+

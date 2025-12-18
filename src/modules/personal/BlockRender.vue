@@ -8,9 +8,12 @@
       <span v-if="block.data.location">{{ block.data.location }}</span>
     </div>
   </div>
+  
 </template>
 
 <script setup lang="ts">
-/** 个人信息模块渲染组件 */
-defineProps<{ block: any }>();
+import type { PersonalBlock } from "./types";
+
+defineProps<{ block: PersonalBlock }>();
 </script>
+

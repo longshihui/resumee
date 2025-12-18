@@ -18,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
-/** 教育经历模块渲染组件 */
-defineProps<{ block: any }>();
+import type { EducationBlock } from "./types";
+
+defineProps<{ block: EducationBlock }>();
 </script>
+

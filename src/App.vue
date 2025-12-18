@@ -9,7 +9,11 @@
           <ResumeCanvas />
         </div>
       </t-content>
-      <t-aside class="app-layout__sidebar" width="380px">
+      <t-aside
+        v-if="ui.sidebarMode !== 'none'"
+        class="app-layout__sidebar"
+        width="380px"
+      >
         <ConfigPanel />
       </t-aside>
     </t-layout>
@@ -21,6 +25,8 @@
 import AppToolbar from "./components/AppToolbar.vue";
 import ResumeCanvas from "./components/ResumeCanvas.vue";
 import ConfigPanel from "./components/ConfigPanel.vue";
+import { useUIStore } from "./stores/ui";
+const ui = useUIStore();
 </script>
 
 <style scoped>

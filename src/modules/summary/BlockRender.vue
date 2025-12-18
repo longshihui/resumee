@@ -8,6 +8,8 @@
 </template>
 
 <script setup lang="ts">
-/** 个人总结模块渲染组件 */
-defineProps<{ block: any }>();
+import type { SummaryBlock } from "./types";
+
+defineProps<{ block: SummaryBlock }>();
 </script>
+

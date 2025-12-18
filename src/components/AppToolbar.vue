@@ -10,6 +10,12 @@
         <t-space>
           <t-button theme="primary" variant="text">预览</t-button>
           <t-button theme="primary">导出 PDF</t-button>
+          <t-button variant="outline" @click="ui.openStructure()"
+            >模块排序</t-button
+          >
+          <t-button variant="outline" @click="ui.closeSidebar()"
+            >隐藏侧边栏</t-button
+          >
         </t-space>
       </t-col>
     </t-row>
@@ -18,6 +24,8 @@
 
 <script setup lang="ts">
 /** 工具栏：包含预览与导出操作 */
+import { useUIStore } from "../stores/ui";
+const ui = useUIStore();
 </script>
 
 <style scoped>
