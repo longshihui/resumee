@@ -3,28 +3,23 @@
     <div v-if="ui.sidebarMode === 'content'">
       <div v-if="store.selectedBlock" class="config-panel__content">
         <div class="config-panel__header">
-          <h3>{{ store.selectedBlock.title }}</h3>
+          <h3 class="config-panel__header-title">
+            {{ store.selectedBlock.title }}
+          </h3>
+          <t-button
+            shape="circle"
+            variant="text"
+            size="small"
+            @click="ui.closeSidebar()"
+            class="config-panel__close-btn"
+          >
+            <CloseIcon />
+          </t-button>
         </div>
 
-        <PersonalBlockEditor
-          v-if="store.selectedBlock.type === BLOCK_TYPES.PERSONAL"
-          :block="store.selectedBlock"
-        />
-        <SummaryBlockEditor
-          v-else-if="store.selectedBlock.type === BLOCK_TYPES.SUMMARY"
-          :block="store.selectedBlock"
-        />
-        <ExperienceBlockEditor
-          v-else-if="store.selectedBlock.type === BLOCK_TYPES.EXPERIENCE"
-          :block="store.selectedBlock"
-        />
-        <EducationBlockEditor
-          v-else-if="store.selectedBlock.type === BLOCK_TYPES.EDUCATION"
-          :block="store.selectedBlock"
-        />
-        <ProjectBlockEditor
-          v-else-if="store.selectedBlock.type === BLOCK_TYPES.PROJECT"
-          :block="store.selectedBlock"
+        <component
+          :is="getEditor(store.selectedBlock.type)"
+          :block="(store.selectedBlock as any)"
         />
       </div>
       <div v-else class="config-panel__empty-state">
@@ -33,6 +28,18 @@
     </div>
 
     <div v-else-if="ui.sidebarMode === 'structure'">
+      <div class="config-panel__header">
+        <h3 class="config-panel__header-title">模块排序</h3>
+        <t-button
+          shape="circle"
+          variant="text"
+          size="small"
+          @click="ui.closeSidebar()"
+          class="config-panel__close-btn"
+        >
+          <CloseIcon />
+        </t-button>
+      </div>
       <div class="config-panel__structure-list">
         <VueDraggable
           v-model="draggableBlocks"
@@ -115,16 +122,33 @@ import { computed, watch } from "vue";
 import { useResumeStore } from "../stores/resume";
 import { useUIStore } from "../stores/ui";
 import { VueDraggable } from "vue-draggable-plus";
-import { MoveIcon, LockOnIcon, DeleteIcon } from "tdesign-icons-vue-next";
+import {
+  MoveIcon,
+  LockOnIcon,
+  DeleteIcon,
+  CloseIcon,
+} from "tdesign-icons-vue-next";
 import { BLOCK_TYPES } from "../constants/resume";
-import PersonalBlockEditor from "../modules/personal/BlockEditor.vue";
-import SummaryBlockEditor from "../modules/summary/BlockEditor.vue";
-import ExperienceBlockEditor from "../modules/experience/BlockEditor.vue";
-import EducationBlockEditor from "../modules/education/BlockEditor.vue";
-import ProjectBlockEditor from "../modules/project/BlockEditor.vue";
+import { BlockEditor as PersonalEditor } from "../modules/personal";
+import { BlockEditor as SummaryEditor } from "../modules/summary";
+import { BlockEditor as ExperienceEditor } from "../modules/experience";
+import { BlockEditor as EducationEditor } from "../modules/education";
+import { BlockEditor as ProjectEditor } from "../modules/project";
 
 const store = useResumeStore();
 const ui = useUIStore();
+
+const editorMap: Record<string, any> = {
+  [BLOCK_TYPES.PERSONAL]: PersonalEditor,
+  [BLOCK_TYPES.SUMMARY]: SummaryEditor,
+  [BLOCK_TYPES.EXPERIENCE]: ExperienceEditor,
+  [BLOCK_TYPES.EDUCATION]: EducationEditor,
+  [BLOCK_TYPES.PROJECT]: ProjectEditor,
+};
+
+function getEditor(type: string) {
+  return editorMap[type];
+}
 
 // 当选择模块时自动显示内容配置侧边栏
 watch(
@@ -189,8 +213,18 @@ function onDragEnd() {
   margin-bottom: 20px;
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+.config-panel__header-title {
+  margin: 0;
+}
+
+.config-panel__close-btn {
+  color: var(--td-text-color-secondary);
+}
 .config-panel__empty-state {
   padding: 40px;
   text-align: center;

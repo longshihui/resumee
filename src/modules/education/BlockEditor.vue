@@ -21,26 +21,24 @@
         @click="block.data.items.splice(idx, 1)"
         >删除</t-button
       >
-      <t-input
-        v-model="item.school"
-        placeholder="学校"
-        class="config-panel__input-group"
-      />
-      <t-input
-        v-model="item.major"
-        placeholder="专业"
-        class="config-panel__input-group"
-      />
-      <t-input
-        v-model="item.degree"
-        placeholder="学历"
-        class="config-panel__input-group"
-      />
-      <div class="config-panel__date-row config-panel__input-group">
-        <t-input v-model="item.startDate" placeholder="开始时间" />
-        <span class="config-panel__date-separator">-</span>
-        <t-input v-model="item.endDate" placeholder="结束时间" />
-      </div>
+      <t-form label-align="top">
+        <t-form-item label="学校">
+          <t-input v-model="item.school" />
+        </t-form-item>
+        <t-form-item label="专业">
+          <t-input v-model="item.major" />
+        </t-form-item>
+        <t-form-item label="学历">
+          <t-input v-model="item.degree" />
+        </t-form-item>
+        <t-form-item label="时间范围">
+          <div class="config-panel__date-row">
+            <t-input v-model="item.startDate" placeholder="开始时间" />
+            <span class="config-panel__date-separator">-</span>
+            <t-input v-model="item.endDate" placeholder="结束时间" />
+          </div>
+        </t-form-item>
+      </t-form>
     </div>
 
     <t-button block variant="dashed" @click="addEducationItem"
@@ -67,4 +65,3 @@ function addEducationItem() {
   });
 }
 </script>
-

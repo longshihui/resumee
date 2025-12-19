@@ -13,9 +13,6 @@
           <t-button variant="outline" @click="ui.openStructure()"
             >模块排序</t-button
           >
-          <t-button variant="outline" @click="ui.closeSidebar()"
-            >隐藏侧边栏</t-button
-          >
         </t-space>
       </t-col>
     </t-row>

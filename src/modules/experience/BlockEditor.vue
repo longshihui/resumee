@@ -21,22 +21,24 @@
         @click="block.data.items.splice(idx, 1)"
         >删除</t-button
       >
-      <t-input
-        v-model="item.company"
-        placeholder="公司名称"
-        class="config-panel__input-group"
-      />
-      <t-input
-        v-model="item.position"
-        placeholder="职位"
-        class="config-panel__input-group"
-      />
-      <div class="config-panel__date-row config-panel__input-group">
-        <t-input v-model="item.startDate" placeholder="开始时间" />
-        <span class="config-panel__date-separator">-</span>
-        <t-input v-model="item.endDate" placeholder="结束时间" />
-      </div>
-      <t-textarea v-model="item.description" placeholder="工作描述" />
+      <t-form label-align="top">
+        <t-form-item label="公司名称">
+          <t-input v-model="item.company" />
+        </t-form-item>
+        <t-form-item label="职位">
+          <t-input v-model="item.position" />
+        </t-form-item>
+        <t-form-item label="时间范围">
+          <div class="config-panel__date-row">
+            <t-input v-model="item.startDate" placeholder="开始时间" />
+            <span class="config-panel__date-separator">-</span>
+            <t-input v-model="item.endDate" placeholder="结束时间" />
+          </div>
+        </t-form-item>
+        <t-form-item label="工作描述">
+          <t-textarea v-model="item.description" />
+        </t-form-item>
+      </t-form>
     </div>
 
     <t-button block variant="dashed" @click="addExperienceItem"
@@ -63,4 +65,3 @@ function addExperienceItem() {
   });
 }
 </script>
-

@@ -9,13 +9,15 @@
           <ResumeCanvas />
         </div>
       </t-content>
-      <t-aside
-        v-if="ui.sidebarMode !== 'none'"
-        class="app-layout__sidebar"
-        width="380px"
-      >
-        <ConfigPanel />
-      </t-aside>
+      <transition name="sidebar-slide">
+        <t-aside
+          v-if="ui.sidebarMode !== 'none'"
+          class="app-layout__sidebar"
+          width="380px"
+        >
+          <ConfigPanel />
+        </t-aside>
+      </transition>
     </t-layout>
   </t-layout>
 </template>
@@ -72,5 +74,15 @@ const ui = useUIStore();
   border-left: 1px solid var(--td-component-stroke);
   overflow-y: auto;
   flex-shrink: 0;
+}
+
+.sidebar-slide-enter-active,
+.sidebar-slide-leave-active {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.sidebar-slide-enter-from,
+.sidebar-slide-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
 }
 </style>
